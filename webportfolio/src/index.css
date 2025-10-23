@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* =====================================
+   CSS Variables (Theme Colors)
+   ===================================== */
+:root {
+  /* Backgrounds */
+  --color-bg-start: #2e1f26;
+  --color-bg-end: #12121a;
+
+  /* Text Colors */
+  --color-text-main: #e4e4e7;
+  --color-text-secondary: #71717a;
+
+  /* Accent Colors */
+  --color-accent: #eebbe7;
+  --color-accent-hover: rgba(255, 142, 179, 0.15);
+  --color-accent-gradient: rgba(255, 142, 179, 0.8);
+
+  /* Font */
+  --font-heading: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --color-bg-start: #faf7f8;
+  --color-bg-end: #ffffff;
+  --color-text-main: #1a1a1a;
+  --color-text-secondary: #6b7280;
+  --color-accent: #d946ef;
+  --color-accent-hover: rgba(217, 70, 239, 0.15);
+}
+
+/* =====================================
+   Global Base
+   ===================================== */
+body {
+  font-family: var(--font-heading);
+  background: linear-gradient(180deg, var(--color-bg-start), var(--color-bg-end));
+  color: var(--color-text-main);
+  @apply min-h-screen leading-relaxed overflow-x-hidden;
+}
+
+/* =====================================
+   Animations
+   ===================================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

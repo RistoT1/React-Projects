@@ -13,6 +13,19 @@ function App() {
     const current = parseFloat(currentValue);
     if (isNaN(prev) || isNaN(current)) return "0";
 
+
+    const methods = {
+      '+': String(prev + current)
+      ,'-': String(prev + current)
+      ,'*': String(prev + current)
+      ,'/' : String(prev + current)
+    }
+
+    method.map((methods, index))
+    {
+      
+    }
+
     switch (method) {
       case '+':
         return String(prev + current);
