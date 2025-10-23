@@ -1,32 +1,81 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Login = () => {
-    const [Email, setEmail] = useState('');
-    const [Password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
+  const [Email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [selectedInput, setSelectedInput] = useState('');
 
-    const TogglePassword = () => {
-        setShowPassword((prevs) => !prevs);
-    }
+  const [isEdge, setIsEdge] = useState(false);
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <input type="email"
-                placeholder="Email"
-                value={Email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
-            <input type={showPassword ? 'text' : 'password'}
-                placeholder="Password"
-                value={Password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            <i className="toggle-password" onClick={TogglePassword}>aa</i>
-            <button type="submit"></button>
-        </form>
-    );
-}
+  useEffect(() => {
+    // Detect Edge browser
+    const ua = window.navigator.userAgent;
+    setIsEdge(ua.includes("Edg/")); // Edge user agent contains 'Edg/'
+  }, []);
 
-export default Login
+  const TogglePassword = () => {
+    setShowPassword(prev => !prev);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Email:", Email);
+    console.log("Password:", Password);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="border-2 border-gray-400 p-6 flex flex-col gap-4 w-full max-w-md mx-auto mt-10 bg-white rounded shadow-md">
+      <input
+        type="email"
+        placeholder="Email"
+        value={Email}
+        onChange={(e) => setEmail(e.target.value)}
+        onFocus={() => setSelectedInput('email')}
+        onBlur={() => setSelectedInput('')}
+        required
+        className={`border-2 border-gray-400 p-2 rounded-sm 
+          transition-transform duration-200
+          hover:scale-105
+          ${selectedInput === 'email' ? 'scale-105 border-gray-600' : ''}
+          hover:border-gray-600
+          outline-none`}
+      />
+
+      <div className="relative">
+        <input
+          type={showPassword ? 'text' : 'password'}
+          placeholder="Password"
+          value={Password}
+          onChange={(e) => setPassword(e.target.value)}
+          onFocus={() => setSelectedInput('password')}
+          onBlur={() => setSelectedInput('')}
+          required
+          autoComplete="new-password"
+          className={`w-full border-2 border-gray-400 p-2 rounded-sm 
+            transition-transform duration-200
+            hover:scale-105
+            ${selectedInput === 'password' ? 'scale-105 border-gray-600' : ''}
+            hover:border-gray-600
+            outline-none`}
+        />
+        {/* Only show custom button if NOT Edge */}
+        {!isEdge && (
+          <button
+            type="button"
+            onClick={TogglePassword}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+          >
+            {showPassword ? 'Hide' : 'Show'}
+          </button>
+        )}
+      </div>
+
+      <button type="submit" className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+        Login
+      </button>
+    </form>
+  );
+};
+
+export default Login;
