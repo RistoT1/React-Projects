@@ -19,6 +19,3 @@ Thumbs.db
 # Editor settings
 .vscode/
 
-# Project-specific / configs you want to ignore
-.github/instructions/kluster-code-verify.instructions.md
-.kluster
