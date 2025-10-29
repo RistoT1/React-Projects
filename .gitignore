@@ -1,11 +1,24 @@
-﻿node_modules/
+﻿# Node modules
+node_modules/
+
+# Environment variables
 .env
 .env.local
-dist/
-build/
-.DS_Store
+
+# Logs
 *.log
 
+# Build folders
+dist/
+build/
 
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+
+# Project-specific / configs you want to ignore
 .github/instructions/kluster-code-verify.instructions.md
 .kluster
