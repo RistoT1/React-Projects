@@ -8,21 +8,21 @@ function NavBar() {
   const { mode, toggleColorMode } = useColorMode()
 
   return (
-    <div className="sticky top-0 z-50 flex items-center justify-between p-4 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+    <div className="sticky top-0 z-50 flex items-center justify-between p-4 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 w-full">
       <Link to={"/"}>
         <h1 className="text-xl font-bold text-gray-900 dark:text-white">Logo</h1>
       </Link>
       <div className="flex items-center gap-4">
         <Link to={"/create"}>
-          <button className="text-2xl text-gray-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-400">
+          <button className="text-2xl text-gray-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-400 flex items-center justify-center">
             <CiSquarePlus />
           </button>
         </Link>
-        <button 
+        <button
           onClick={toggleColorMode}
-          className="text-xl text-gray-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-400"
+          className="text-xl text-gray-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-400 flex items-center justify-center"
         >
-          {mode === "light" ? <FaRegSun/> : <FaRegMoon/>}
+          {mode === "light" ? <FaRegSun /> : <FaRegMoon />}
         </button>
       </div>
     </div>

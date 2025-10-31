@@ -5,9 +5,9 @@ import NavBar from "./components/NavBar";
 
 function App() {
   return (
-    <div className=" min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <div className="min-h-screen w-full overflow-x-hidden bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <NavBar />
-      <main className="p-4">
+      <main className="mt-10">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/create" element={<CreatePage />} />
