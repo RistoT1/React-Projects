@@ -14,6 +14,7 @@ const ProductPage = () => {
   const [error, setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(1);
   const swiperRef = useRef(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   useEffect(() => {
     const getProductById = async () => {
@@ -41,9 +42,11 @@ const ProductPage = () => {
     product.image5,
   ].filter(Boolean);
 
+  const sizes = [30, 32, 34, 36, 38, 40, 42, 44];
+
   return (
-    <div className="max-w-full sm:max-w-8/10 mx-auto p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+    <div className="max-w-full sm:max-w-14/15 2xl:max-w-1/2 mx-auto p-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-15">
 
         {/* Left Column: Images */}
         <div>
@@ -92,7 +95,7 @@ const ProductPage = () => {
             {/* Main Image */}
             <div className="bg-amber-950 flex justify-center items-center h-96">
               <img
-                src={images[0] ?? "/placeholder.png"}
+                src={images[currentSlide-1]}
                 alt={product.name}
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -106,6 +109,7 @@ const ProductPage = () => {
                   <div
                     key={idx}
                     className="w-full h-full opacity-70 hover:opacity-80 hover:scale-105 transition-transform duration-300"
+                    onClick={() => setCurrentSlide(idx + 1)}
                   >
                     <img
                       src={img}
@@ -128,14 +132,25 @@ const ProductPage = () => {
             <p className="mt-4">Laikaha sitä olla pittää nii eipä näitä ny jaksoo kirjotella :)</p>
           </div>
 
-          <div className="mt-25">
+          <div className="grid grid-cols-5 gap-2 w-70 mt-10">
+            {sizes.map((size) => (
+              <div key={size} className={`border rounded transition-transform duration-250 hover:scale-110 ${selectedSize === size ? "bg-red-300 scale-110" : "bg-white hover:scale-105"}`}>
+                <button
+                  onClick={() => setSelectedSize(size)}
+                  className="p-2 w-full h-full font-extralight"
+                >{size}</button>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10">
             <button className="w-40 h-15 bg-red-300 text-white font-bold rounded">Lisää koriin</button>
           </div>
         </div>
       </div>
-      <div className="min-h-screen bg-red-300 rounded">
-        <div className="flex flex-row gap-6 h-full">
-            <div className="bg-white mt-12 m-4 rounded-tr-3xl rounded-bl-3xl overflow-hidden h-82 w-3/5 shadow-md">
+      <div className="min-h-screen bg-white border-t-2 border-red-300">
+        <div className="flex flex-col items-center sm:flex-row gap-6 h-full">
+          <div className="bg-white mt-12 rounded-tr-3xl rounded-bl-3xl overflow-hidden h-82 w-full sm:w-1/2">
             <img
               src={images[0]}
               alt="Rounded example"
@@ -143,9 +158,26 @@ const ProductPage = () => {
             />
           </div>
 
-          <div className="mt-12 m-4 text-white rounded-tl-xl rounded-br-xl w-2/5 h-82 ">
+          <div className="mt-12 m-4 text-black rounded-tl-xl rounded-br-xl w-1/2 h-82 ">
+            <h1 className="m-4 text-center font-bold text-3xl">Materiaalit</h1>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum repudiandae quaerat quo, in tenetur maiores perspiciatis beatae libero et similique sit saepe officia ipsa provident ratione enim fugiat hic quod.</p>
           </div>
+        </div>
+        <div className="flex flex-col-reverse items-center sm:flex-row gap-6 h-full">
+          <div className="mt-12 m-4 text-black rounded-tl-xl rounded-br-xl w-1/2 h-82 ">
+            <h1 className="m-4 text-center font-bold text-3xl">Tuotetiedot</h1>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum repudiandae quaerat quo, in tenetur maiores perspiciatis beatae libero et similique sit saepe officia ipsa provident ratione enim fugiat hic quod.</p>
+          </div>
+          <div className="bg-white mt-2 rounded-tl-3xl rounded-br-3xl overflow-hidden h-82 w-full sm:w-1/2">
+            <img
+              src={images[0]}
+              alt="Rounded example"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+        <div className="w-full flex items-center justify-center">
+          <div className="bg-amber-300">hey</div>
         </div>
       </div>
     </div>
