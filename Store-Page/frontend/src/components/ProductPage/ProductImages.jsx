@@ -48,11 +48,11 @@ const ProductImages = ({ images, productName, currentSlide, setCurrentSlide }) =
       </div>
 
       <div className="hidden sm:flex flex-col gap-2">
-        <div className="bg-amber-950 flex justify-center items-center h-96">
+        <div className=" flex justify-center items-center h-96 ">
           <img
             src={images[currentSlide - 1]}
             alt={productName}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-t-xl"
             loading="lazy"
           />
         </div>
