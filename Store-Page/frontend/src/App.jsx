@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="min-h-screen w-full overflow-x-hidden overflow-y-hidden bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <NavBar />
-      <main className="mt-10">
+      <main className="mt-5 sm:mt-10">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/create" element={<CreatePage />} />

@@ -3,7 +3,7 @@ import { createProduct } from "../api/product.controller.js";
 import { CiSquarePlus } from "react-icons/ci";
 
 const CreatePage = () => {
-  const maxImageCount = 5;
+  const maxImageCount = 10;
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -24,7 +24,7 @@ const CreatePage = () => {
       const productData = { name, price };
 
       images.forEach((img, idx) => {
-        if (idx < 5) {
+        if (idx < maxImageCount) {
           productData[`image${idx + 1}`] = img || "";
         }
       });
