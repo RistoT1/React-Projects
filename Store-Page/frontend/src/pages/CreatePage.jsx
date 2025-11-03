@@ -1,23 +1,51 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createProduct } from "../api/product.controller.js";
+import { CiSquarePlus } from "react-icons/ci";
+
 const CreatePage = () => {
+  const maxImageCount = 5;
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState([""]);
+  const [imageRowCount, setImageRowCount] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  const handleImageChange = (index, value) => {
+    const newImages = [...images];
+    newImages[index] = value;
+    setImages(newImages);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await createProduct({ name, price, image });
+      const productData = { name, price };
+
+      images.forEach((img, idx) => {
+        if (idx < 5) {
+          productData[`image${idx + 1}`] = img || "";
+        }
+      });
+
+      const data = await createProduct(productData );
       console.log(data);
-      setName(""); setPrice(""); setImage("");
+      setName("");
+      setPrice("");
+      setImages([""]);
+      setImageRowCount(1);
     } catch (err) {
       alert(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const addImageRow = () => {
+    if (imageRowCount < maxImageCount) {
+      setImageRowCount((prev) => prev + 1);
+      setImages((prev) => [...prev, ""]);
     }
   };
 
@@ -27,60 +55,73 @@ const CreatePage = () => {
         <div className="text-center p-2">
           <h1 className="text-2xl text-gray-900 dark:text-white">Luo uusi tuote</h1>
         </div>
+
         <div className="w-full border-t-2 border-t-gray-900 dark:border-t-gray-100 mt-4 pt-8">
-          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-3.5 items-center space-y-4">
+          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-2 items-center space-y-4">
+
             <div className="w-full max-w-md flex flex-col text-start">
               <label htmlFor="name" className="mb-1">Nimi</label>
               <input
                 type="text"
                 id="name"
                 required
-                placeholder="lisää nimi"
+                placeholder="Lisää nimi"
                 value={name}
-                className="w-full border rounded p-2"
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
+                className="w-full border rounded p-2 focus:ring-2 focus:ring-gray-800"
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
+
             <div className="w-full max-w-md flex flex-col text-start">
               <label htmlFor="price" className="mb-1">Hinta</label>
               <input
                 type="number"
                 id="price"
                 required
-                placeholder="lisää hinta"
+                placeholder="Lisää hinta"
                 value={price}
                 className="w-full border rounded p-2 focus:ring-2 focus:ring-gray-800"
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                }}
+                onChange={(e) => setPrice(e.target.value)}
               />
             </div>
-            <div className="w-full max-w-md flex flex-col text-start">
-              <label htmlFor="img" className="mb-1">Kuva Url</label>
-              <input
-                type="text"
-                id="img"
-                required
-                placeholder="lisää kuvan url"
-                value={image}
-                className="w-full border rounded p-2 focus:ring-2 focus:ring-gray-800"
-                onChange={(e) => {
-                  setImage(e.target.value)
-                }}
 
-              />
+            <div className="w-full max-w-md flex flex-col text-start">
+              {Array.from({ length: imageRowCount }).map((_, index) => (
+                <div key={index} className="mb-2">
+                  <label htmlFor={`img-${index}`} className="mb-1">
+                    Kuva URL {index + 1}
+                  </label>
+                  <input
+                    type="text"
+                    id={'image' + index}
+                    placeholder="Lisää kuvan URL"
+                    value={images[index] || ""}
+                    className="w-full border rounded p-2 focus:ring-2 focus:ring-gray-800"
+                    onChange={(e) => handleImageChange(index, e.target.value)}
+                  />
+                </div>
+              ))}
+
+              <button
+                type="button"
+                className={`text-2xl mt-2 ${imageRowCount >= maxImageCount ? "opacity-50 cursor-not-allowed" : ""}`}
+                onClick={addImageRow}
+                disabled={imageRowCount >= maxImageCount}
+              >
+                <CiSquarePlus />
+              </button>
             </div>
+
             <div className="w-full max-w-sm flex flex-col mt-5 text-start">
               <button
                 type="submit"
                 disabled={loading}
                 className="w-full border rounded p-2 bg-gray-800 text-white hover:bg-gray-700 focus:ring-2 focus:ring-gray-800"
               >
-              {loading ? "tallennetaan" : "tallenna"}
+                {loading ? "Tallennetaan..." : "Tallenna"}
               </button>
             </div>
+
           </form>
         </div>
       </div>

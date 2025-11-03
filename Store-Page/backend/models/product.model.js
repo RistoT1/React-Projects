@@ -6,21 +6,38 @@ import mongoose from "mongoose";
 */
 
 const productSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: [true, "Tuotteen nimi on pakollinen"],
         trim: true
     },
-    price:{
+    price: {
         type: Number,
         required: [true, "Tuotteen hinta on pakollinen"],
     },
-    image:{
-        type:String,
+    image1: {
+        type: String,
         required: [true, "Tuotteen kuva on pakollinen"],
         trim: true
+    },
+    image2: {
+        type: String,
+        trim: true,
+    },
+    image3: {
+        type: String,
+        trim: true,
+    },
+    image4: {
+        type: String,
+        trim: true,
+    },
+    image5: {
+        type: String,
+        trim: true,
     }
-},{
+
+}, {
     timestamps: true //automaattisesti createdAt updatedAt
 });
 
