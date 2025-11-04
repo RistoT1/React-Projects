@@ -11,7 +11,7 @@ const ProductInfo = ({ product }) => {
 
       <SizeSelector />
 
-      <div className="my-5 duration-300 hover:opacity-80">
+      <div className="mt-10 duration-300 hover:opacity-80">
         <button className="w-40 h-15 cursor-pointer bg-red-300 text-white font-bold rounded">Lisää koriin</button>
       </div>
     </div>

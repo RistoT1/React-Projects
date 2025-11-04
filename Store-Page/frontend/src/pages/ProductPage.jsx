@@ -4,7 +4,7 @@ import { fetchProductById } from "../api/product.controller.js";
 import ProductImages from "../components/ProductPage/ProductImages";
 import ProductInfo from "../components/ProductPage/ProductInfo";
 import ProductSection from "../components/ProductPage/ProductSection";
-import StarRating from "../components/ProductPage/StarRating";
+import CommentSection from "../components/ProductPage/CommentSection";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -34,8 +34,9 @@ const ProductPage = () => {
   const images = Array.from({ length: 10}, (_, i) => product[`image${i + 1}`]).filter(Boolean);
 
   return (
+    //Main image and product info, sizes ym
     <div className="max-w-full sm:max-w-14/15 2xl:max-w-1/2 mx-auto p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 mb-10">
         <ProductImages images={images} productName={product.name} currentSlide={currentSlide} setCurrentSlide={setCurrentSlide} />
         <ProductInfo product={product} />
       </div>
@@ -60,6 +61,7 @@ const ProductPage = () => {
         </div>
       </div>
 
+      {/*More info and comment section */}
       <div className="min-h-screen bg-white border-t-2 border-red-300">
         <ProductSection
           image={images[1]||images[0]}
@@ -73,9 +75,9 @@ const ProductPage = () => {
           text="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum repudiandae quaerat quo, in tenetur maiores perspiciatis beatae libero et similique sit saepe officia ipsa provident ratione enim fugiat hic quod."
           imagePosition="right"
         />
-        <div className="w-full flex items-center justify-center border-t-2 border-red-300">
-          <div className="">
-            <StarRating />
+        <div className="w-full flex  border-t-2 border-red-300">
+          <div className="w-full">
+            <CommentSection title="Arvostelut"/>
           </div>
         </div>
       </div>

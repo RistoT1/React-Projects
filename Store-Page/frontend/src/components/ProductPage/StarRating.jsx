@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa6";
 
-const StarRating = ({ starCount = 5 }) => {
-    const [rating, setRating] = useState(0);
+const StarRating = ({rating, setRating, starCount = 5 }) => {
 
     const handleClick = (currentId) => {
         setRating(currentId);
     };
 
     return (
-        <div className="flex gap-2">
+        <div className="ml-2 flex gap-2">
             {[...Array(starCount)].map((_, index) => {
                 index += 1;
                 return (
