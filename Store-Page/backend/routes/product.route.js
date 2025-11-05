@@ -1,12 +1,24 @@
 import express from "express";
-import { addProduct, deleteProduct, getProducts, updateProduct,getProductById } from "../controller/product.controller.js";
+import {
+  getProducts,
+  getProductById,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+} from "../controller/product.controller.js";
+
+import { authMiddleware } from "../middleware/authMiddleware.js";
+import { requireRole } from "../middleware/roleMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", getProducts);               // Hakee kaikki tuotteet.
-router.get("/:id", getProductById); 
-router.post("/", addProduct);               // Lisää uuden tuotteen.
-router.put("/:id", updateProduct);          // päivittää tuotteen ID:n perusteella.
-router.delete("/:id", deleteProduct);       // Poistaa tuotteen ID:n perusteella.
+//kaikille sallittu
+router.get("/", getProducts);
+router.get("/:id", getProductById);
+
+// Admin-only
+router.post("/", authMiddleware, requireRole("admin"), addProduct);
+router.put("/:id", authMiddleware, requireRole("admin"), updateProduct);
+router.delete("/:id", authMiddleware, requireRole("admin"), deleteProduct);
 
 export default router;
