@@ -8,8 +8,7 @@ export const handleResponse = async (res) => {
   }
 
   if (!res.ok) {
-    throw new Error(data.message || "API request failed");
+    throw new Error(data.error || "API request failed");
   }
-
-  return data.data; 
+  return data.data;
 };

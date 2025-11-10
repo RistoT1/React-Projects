@@ -5,6 +5,7 @@ import { connectDB } from "./config/db.js";
 import productRoutes from "./routes/product.route.js";
 import userRoutes from "./routes/user.route.js";
 import adminRoutes from "./routes/admin.route.js";
+import commentRoutes from "./routes/comment.route.js"
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(express.json()); // Parse incoming JSON
 
 // Routes
 app.use("/api/products", productRoutes);
+app.use("/api/comments",commentRoutes)
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes); 
 

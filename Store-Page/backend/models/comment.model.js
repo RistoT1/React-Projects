@@ -8,7 +8,7 @@ import mongoose from "mongoose";
 const commentSchema = new mongoose.Schema({
     rating: {
         type: String,
-        required: [true, "Tuotteen nimi on pakollinen"],
+        required: [true, "Arvostelu on pakollinen"],
         trim: true
     },
     comment: {
