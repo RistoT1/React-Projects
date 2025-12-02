@@ -23,5 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# Environment variables
+frontend/node_modules/
+frontend/dist/
+.env.*
 .env
